@@ -4,7 +4,7 @@ export interface IErrorSerialized {
 }
 export interface IServerError {
   status: false;
-  errors: Array<{
+  errors: {
     message: string;
-  }>;
+  }[];
 }
