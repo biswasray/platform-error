@@ -25,7 +25,7 @@ function callCustomError() {
             expect(error).toBeInstanceOf(CustomError);
             expect(error).toHaveProperty('statusCode', code);
             expect(error).toHaveProperty('errors', errors);
-            //check the Serialize results
+            // check the Serialize results
             expect(error.serialize()).toEqual(Object.values(errors).map(v => ({ message: v })));
         });
     }

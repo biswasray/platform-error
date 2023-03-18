@@ -26,7 +26,7 @@ function callAllPlatformError() {
 
             const combineErrors = [status, ...messages, resource];
             expect(error).toHaveProperty('errors', combineErrors);
-            //check the Serialize results
+            // check the Serialize results
             expect(error.serialize()).toEqual(combineErrors.map(v => ({ message: v })));
         });
     }
