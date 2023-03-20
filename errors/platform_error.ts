@@ -3,7 +3,7 @@ import { CustomError } from './custom_error';
 
 /**
  * PlatformError
- * 
+ *
  * @alias PlatformError
  */
 export class PlatformError extends CustomError<string[]> {

@@ -2,7 +2,7 @@ import { IErrorSerialized } from '../interfaces/errors';
 
 /**
  * CustomError
- * 
+ *
  * @alias CustomError
  */
 export class CustomError<T extends string[] | Record<string, string>> extends Error {
@@ -20,7 +20,7 @@ export class CustomError<T extends string[] | Record<string, string>> extends Er
     this.errors = errors;
   }
   /**
-   * Serialize `CustomError` to JSON format for server response 
+   * Serialize `CustomError` to JSON format for server response
    * @returns {Object} JSON object of error messages
    */
   serialize(): IErrorSerialized[] {
