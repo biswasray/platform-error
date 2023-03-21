@@ -6,7 +6,7 @@ import { IErrorSerialized } from '../interfaces/errors';
  * @alias CustomError
  */
 export class CustomError<T extends string[] | Record<string, string>> extends Error {
-  statusCode: number = 0;
+  statusCode: number = 500;
   errors: T | undefined;
   /**
    * @summary create CustomError object to throw.
@@ -16,7 +16,7 @@ export class CustomError<T extends string[] | Record<string, string>> extends Er
    */
   constructor(statusCode: number, errors: T) {
     super(Object.values(errors).join(' ') || 'Custom error occurred');
-    this.statusCode = statusCode;
+    this.statusCode = statusCode || this.statusCode;
     this.errors = errors;
   }
   /**
