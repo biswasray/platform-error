@@ -1,6 +1,6 @@
 {
   "name": "platform-error",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,14 @@
     "type": "git",
     "url": "git+https://github.com/biswasray/platform-error.git"
   },
-  "keywords": [],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "node",
+    "error",
+    "custom error"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
