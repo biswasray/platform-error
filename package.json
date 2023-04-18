@@ -1,9 +1,16 @@
 {
   "name": "platform-error",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "typesVersions": {
+    ">=3.1": {
+      "*": [
+        "ts3.1/*"
+      ]
+    }
+  },
   "files": [
     "dist/**/*"
   ],
