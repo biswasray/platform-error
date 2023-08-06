@@ -1,5 +1,5 @@
-export const StatusCodes = {
-  // 4xx
+export const ERROR_STATUS_CODES = {
+  // 4xx client error – the request contains bad syntax or cannot be fulfilled
   'Bad Request': 400,
   Unauthorized: 401,
   'Payment Required': 402,
@@ -40,7 +40,7 @@ export const StatusCodes = {
   'Invalid Token': 498,
   'Token Required': 499,
 
-  // 5xx
+  // 5xx server error – the server failed to fulfil an apparently valid request
   'Internal Server Error': 500,
   'Not Implemented': 501,
   'Bad Gateway': 502,
@@ -63,4 +63,37 @@ export const StatusCodes = {
   'Site is frozen': 530,
   'Network read timeout error': 598,
   'Network Connect Timeout Error': 599,
+} as const;
+
+export const STATUS_CODES = {
+  // 1xx informational response – the request was received, continuing process
+  Continue: 100,
+  'Switching Protocols': 101,
+  Processing: 102,
+  'Early Hints': 103,
+
+  // 2xx successful – the request was successfully received, understood, and accepted
+  OK: 200,
+  Created: 201,
+  Accepted: 202,
+  'Non-Authoritative Information': 203,
+  'No Content': 204,
+  'Reset Content': 205,
+  'Partial Content': 206,
+  'Multi-Status': 207,
+  'Already Reported': 208,
+  'IM Used': 226,
+
+  // 3xx redirection – further action needs to be taken in order to complete the request
+  'Multiple Choices': 300,
+  'Moved Permanently': 301,
+  Found: 302,
+  'See Other': 303,
+  'Not Modified': 304,
+  'Use Proxy': 305,
+  'Switch Proxy': 306,
+  'Temporary Redirect': 307,
+  'Permanent Redirect': 308,
+
+  ...ERROR_STATUS_CODES,
 } as const;

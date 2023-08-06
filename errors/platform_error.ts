@@ -1,4 +1,4 @@
-import { StatusCodes } from '../utils/status_codes';
+import { ERROR_STATUS_CODES } from '../utils/status_codes';
 import { CustomError } from './custom_error';
 
 /**
@@ -16,7 +16,7 @@ export class PlatformError extends CustomError<string[]> {
    * @param options {Object} extra meassages or resource related to error
    * `{ messages?: string[]; resource?: string }`
    */
-  constructor(status: keyof typeof StatusCodes, options?: { messages?: string | string[]; resource?: string }) {
+  constructor(status: keyof typeof ERROR_STATUS_CODES, options?: { messages?: string | string[]; resource?: string }) {
     let messages: string[] = [];
     if (typeof options?.messages === 'string') {
       messages = [status, options?.messages];
@@ -26,6 +26,6 @@ export class PlatformError extends CustomError<string[]> {
     if (options?.resource) {
       messages.push(options.resource);
     }
-    super(StatusCodes[status], messages);
+    super(ERROR_STATUS_CODES[status], messages);
   }
 }

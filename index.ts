@@ -3,7 +3,7 @@ import { PlatformError } from './errors/platform_error';
 import { IErrorLoggerFunction } from './interfaces/errors';
 
 export type { IErrorLoggerFunction, IErrorSerialized, IServerError } from './interfaces/errors';
-export { StatusCodes } from './utils/status_codes';
+export { ERROR_STATUS_CODES, STATUS_CODES } from './utils/status_codes';
 
 export { CustomError };
 export default PlatformError;
@@ -13,7 +13,7 @@ export default PlatformError;
  * - Example: `app.use(ExpressErrorHandler(true));`.
  * - Note: Use `express-async-errors` package before use this handler.
  * - Note: Use this handler at last of Express application routing.
- * @param logger {Boolean} Print error on console if `logger` is `true`
+ * @param logger {Boolean | Function} Print error on console if `logger` is `true` or pass the error instance on `logger` if function provided.
  * @default logger = false
  * @returns {Object} express middleware handler.
  */
@@ -27,19 +27,20 @@ export const ExpressErrorHandler =
         console.log(error);
       }
     }
-    _next();
     if (error instanceof CustomError) {
-      return response.status(error.statusCode).json({
+      response.status(error.statusCode).json({
         status: false,
         errors: error.serialize(),
       });
+    } else {
+      response.status(500).json({
+        status: false,
+        errors: [
+          {
+            message: error.message || 'Something unexpected happened!',
+          },
+        ],
+      });
     }
-    return response.status(500).json({
-      status: false,
-      errors: [
-        {
-          message: error.message || 'Something unexpected happened!',
-        },
-      ],
-    });
+    return _next();
   };
