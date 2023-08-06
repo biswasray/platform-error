@@ -19,7 +19,7 @@ To create a platform error, import the PlatformError class and create an error o
 ```javascript
 import PlatformError from "platform-error";
 
-throw new PlatformError("Bad Request", { messages: ["Query limit must be numeric"] });
+throw new PlatformError("Bad Request", { messages: "Query limit must be numeric" });
 ```
 
 To throw error as server response user need `express-async-errors`
@@ -45,7 +45,12 @@ const app = express();
 ...
 ...
 ...
-app.use(ExpressErrorHandler);
+app.use(ExpressErrorHandler());
+// If you want log error before response
+app.use(ExpressErrorHandler(true));
+// If you have custom logger function
+app.use(ExpressErrorHandler(logger));
+
 app.listen(process.env.PORT,()=> {
     console.log(`Server running on ${process.env.PORT}....`)
 });
@@ -55,10 +60,22 @@ app.listen(process.env.PORT,()=> {
 - Create and throw error
 
 ```javascript
+app.post('/user/:id', (request: Request,response: Response)=> {
+    ...
+    ...
+    throw new PlatformError("Unauthorized", { messages: "You are not authorized to access this resource" });
+});
+
 app.post('/user/signin', (request: Request,response: Response)=> {
     ...
     ...
-    throw new PlatformError("Unauthorized", { messages: ["Username does not exist"] });
+    throw new PlatformError("Not Found", { messages: "Username does not exist", resource: "User" });
+});
+
+app.post('/user/signup', (request: Request,response: Response)=> {
+    ...
+    ...
+    throw new PlatformError("Bad Request", { messages: ["Invalid Email","Password must contain alphanumerics"] });
 });
 ```
 
