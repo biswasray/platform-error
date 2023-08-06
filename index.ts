@@ -1,5 +1,9 @@
 import { CustomError } from './errors/custom_error';
 import { PlatformError } from './errors/platform_error';
+import { IErrorLoggerFunction } from './interfaces/errors';
+
+export type { IErrorLoggerFunction, IErrorSerialized, IServerError } from './interfaces/errors';
+export { StatusCodes } from './utils/status_codes';
 
 export { CustomError };
 export default PlatformError;
@@ -14,10 +18,14 @@ export default PlatformError;
  * @returns {Object} express middleware handler.
  */
 export const ExpressErrorHandler =
-  (logger: boolean = false) =>
+  (logger: boolean | IErrorLoggerFunction = false) =>
   (error: Error, _request: any, response: any, _next: (route?: any) => void) => {
     if (logger) {
-      console.log(error);
+      if (typeof logger === 'function') {
+        logger(error);
+      } else {
+        console.log(error);
+      }
     }
     _next();
     if (error instanceof CustomError) {

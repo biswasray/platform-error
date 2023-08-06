@@ -8,3 +8,5 @@ export interface IServerError {
     message: string;
   }[];
 }
+
+export type IErrorLoggerFunction = (error: Error) => void;
